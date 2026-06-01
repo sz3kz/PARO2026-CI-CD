@@ -1,5 +1,6 @@
-# Copyright 2018, Google Inc.
-# All rights reserved.
+# Copyright 2024 Google Inc.
+# All Rights Reserved.
+#
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -27,41 +28,54 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-"""Unit test utilities for gtest_json_output."""
+# https://bazel.build/external/overview#bzlmod
 
-import re
+module(
+    name = "googletest",
+    version = "head",
+    compatibility_level = 1,
+)
 
+# Only direct dependencies need to be listed below.
+# Please keep the versions in sync with the versions in the WORKSPACE file.
 
-def normalize(obj):
-  """Normalize output object.
+bazel_dep(
+    name = "abseil-cpp",
+    version = "20260107.0",
+)
+bazel_dep(
+    name = "platforms",
+    version = "0.0.11",
+)
+bazel_dep(
+    name = "re2",
+    version = "2025-11-05.bcr.1",
+)
 
-  Args:
-     obj: Google Test's JSON output object to normalize.
+bazel_dep(
+    name = "rules_cc",
+    version = "0.2.8"
+)
 
-  Returns:
-     Normalized output without any references to transient information that may
-     change from run to run.
-  """
+bazel_dep(
+    name = "rules_python",
+    version = "1.3.0",
+    dev_dependency = True,
+)
 
-  def _normalize(key, value):
-    if key == 'time':
-      return re.sub(r'^\d+(\.\d+)?s$', '*', value)
-    elif key == 'timestamp':
-      return re.sub(r'^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$', '*', value)
-    elif key == 'failure':
-      value = re.sub(r'^.*[/\\](.*:)\d+\n', '\\1*\n', value)
-      return re.sub(r'Stack trace:\n(.|\n)*', 'Stack trace:\n*', value)
-    elif key == 'message':
-      value = re.sub(r'^.*[/\\](.*:)\d+\n', '\\1*\n', value)
-      return re.sub(r'Stack trace:\n(.|\n)*', 'Stack trace:\n*', value)
-    elif key == 'file':
-      return re.sub(r'^.*[/\\](.*)', '\\1', value)
-    else:
-      return normalize(value)
+# https://rules-python.readthedocs.io/en/stable/toolchains.html#library-modules-with-dev-only-python-usage
+python = use_extension(
+    "@rules_python//python/extensions:python.bzl",
+    "python",
+    dev_dependency = True,
+)
+python.toolchain(
+    ignore_root_user_error = True,
+    is_default = True,
+    python_version = "3.12",
+)
 
-  if isinstance(obj, dict):
-    return {k: _normalize(k, v) for k, v in obj.items()}
-  if isinstance(obj, list):
-    return [normalize(x) for x in obj]
-  else:
-    return obj
+# See fake_fuchsia_sdk.bzl for instructions on how to override this with a real SDK, if needed.
+fuchsia_sdk = use_extension("//:fake_fuchsia_sdk.bzl", "fuchsia_sdk")
+fuchsia_sdk.create_fake()
+use_repo(fuchsia_sdk, "fuchsia_sdk")

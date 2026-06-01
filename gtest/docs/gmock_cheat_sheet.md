@@ -20,7 +20,7 @@ class Foo {
 (note that `~Foo()` **must** be virtual) we can define its mock as
 
 ```cpp
-#include "gmock/gmock.h"
+#include <gmock/gmock.h>
 
 class MockFoo : public Foo {
  public:
@@ -130,7 +130,7 @@ TEST(BarTest, DoesThis) {
 ## Setting Default Actions {#OnCall}
 
 gMock has a **built-in default action** for any function that returns `void`,
-`bool`, a numeric value, or a pointer. In C++11, it will additionally returns
+`bool`, a numeric value, or a pointer. In C++11, it additionally returns
 the default-constructed value, if one exists for the given type.
 
 To customize the default action for functions with return type `T`, use
