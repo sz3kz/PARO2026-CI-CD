@@ -1,0 +1,9 @@
+As a player, I can roll dice.
+As a player, I can buy property.
+As a player, I can pay prison fee.
+As a player, I can pass Go and collect $200.
+
+GIVEN the player WHEN in jail AND did not roll double dice number THEN player can't move piece.
+GIVEN the player WHEN passed Go THEN collect $200.
+GIVEN the player WHEN stopped on property THEN can buy the property.
+GIVEN the player WHEN rolled double dice value THEN player has another turn.
