@@ -9,17 +9,21 @@ std::string Rewarder::makeStringUppercase(std::string const &mystring) {
                    [](unsigned char c) { return std::toupper(c); });
     return uppercase_scrabble_word;
 }
+auto Rewarder::findRewardForCharacter(char character) const -> int {
+    for ( auto const & handler  : letters) {
+        if (character == handler.getLetter()) {
+            return handler.getPointAmountReward();
+        }
+    }
+    // This is the edge case -> character was not registered with a reward point value
+    return 0;
+}
 void Rewarder::add(LetterHandler handler) { letters.push_back(handler); }
 
 auto Rewarder::getTotalReward(const std::string &scrabble_word) const -> int {
     int total_point_reward{0};
     for(auto const & character : Rewarder::makeStringUppercase(scrabble_word) ) {
-        for(auto const & handler : letters) {
-            if(character == handler.getLetter()) {
-                total_point_reward += handler.getPointAmountReward();
-                break;
-            }
-        }
+        total_point_reward += findRewardForCharacter(character);
     }
     return total_point_reward;
 }

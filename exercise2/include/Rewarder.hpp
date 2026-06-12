@@ -8,6 +8,7 @@ class Rewarder {
     std::vector<LetterHandler> letters;
 
     static auto makeStringUppercase(std::string const &mystring) -> std::string;
+    auto findRewardForCharacter(char letter) const -> int;
 
   public:
     Rewarder() = default;
