@@ -1,5 +1,4 @@
 add_library(scrabble SHARED
-    src/scrabble.cpp
     src/LetterHandler.cpp
     src/Rewarder.cpp
 )
