@@ -2,6 +2,20 @@
 
 #include "gtest/gtest.h"
 
+struct LetterHandlerTrivialTests : public ::testing::Test {
+    char character{'N'};
+    unsigned int point_amount_reward{67};
+
+    LetterHandler letter{LetterHandler(character, point_amount_reward)};
+};
+
+TEST_F(LetterHandlerTrivialTests, GettersCheckTest_GettersReturnsExpectedValues)
+{
+    ASSERT_EQ(letter.getLetter(), character);
+    ASSERT_EQ(letter.getPointAmountReward(), point_amount_reward);
+}
+
+
 struct ScrabbleFullLetterRangeTestSuite : public testing::Test
 {
     Rewarder rewarder;
