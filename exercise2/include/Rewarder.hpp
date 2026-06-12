@@ -8,12 +8,12 @@ class Rewarder {
     std::vector<LetterHandler> letters;
 
     static auto makeStringUppercase(std::string const &mystring) -> std::string;
-    auto findRewardForCharacter(char letter) const -> int;
+    auto findRewardForCharacter(char letter) const -> unsigned int;
 
   public:
     explicit Rewarder() = default;
 
     void add(LetterHandler handler);
 
-    auto getTotalReward(const std::string &scrabble_word) const -> int;
+    auto getTotalReward(const std::string &scrabble_word) const -> unsigned int;
 };
