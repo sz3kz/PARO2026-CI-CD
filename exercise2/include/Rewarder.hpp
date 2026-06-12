@@ -3,11 +3,14 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 
 class Rewarder {
     std::vector<LetterHandler> letters;
 
-public:
+    static auto makeStringUppercase(std::string const &mystring) -> std::string;
+
+  public:
     Rewarder() = default;
 
     void add(LetterHandler handler);
