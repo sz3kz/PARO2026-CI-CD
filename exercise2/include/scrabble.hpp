@@ -1,13 +1,16 @@
 #include "string"
-#include "unordered_set"
+#include "unordered_map"
 
-int scrabble(std::string word);
+class Scrabble {
 
-std::unordered_set<char> OnePoints   = {'A', 'E', 'I', 'O', 'U',
-                                        'L', 'N', 'R', 'S', 'T'};
-std::unordered_set<char> TwoPoints   = {'D', 'G'};
-std::unordered_set<char> ThreePoints = {'B', 'C', 'M', 'P'};
-std::unordered_set<char> FourPoints  = {'F', 'H', 'V', 'W', 'Y'};
-std::unordered_set<char> FivePoints  = {'K'};
-std::unordered_set<char> EightPoints = {'J', 'X'};
-std::unordered_set<char> TenPoints   = {'Q', 'Z'};
+  public:
+    void registerSymbol(char symbol, int points);
+    int score(const std::string &word) const;
+
+  private:
+    std::unordered_map<char, int> scores;
+};
+
+Scrabble createDefaultScorer();
+
+int scrabble(const std::string &word);
