@@ -46,27 +46,32 @@ TEST_F(ScrabbleFullLetterRangeTestSuite, dummyTest)
     ASSERT_TRUE(true);
 }
 
-TEST_F(ScrabbleFullLetterRangeTestSuite, CabbageinInitialTest)
+TEST_F(ScrabbleFullLetterRangeTestSuite, AllUppercaseCharacterWordTest_UppercaseCabbageWordEvaluatesToExpectedValue)
 {
     ASSERT_EQ(rewarder.getTotalReward("CABBAGE"), 14);
 }
 
-TEST_F(ScrabbleFullLetterRangeTestSuite, ZeroTest)
+TEST_F(ScrabbleFullLetterRangeTestSuite, EmptyWordTest_EmptyStringEvaluatesToZero)
 {
     ASSERT_EQ(rewarder.getTotalReward(""), 0);
 }
 
-TEST_F(ScrabbleFullLetterRangeTestSuite, MixedTest)
+TEST_F(ScrabbleFullLetterRangeTestSuite, MockingcaseVersusUppercaseWordTest_UppercaseAndMockingcaseCabbageWordEvaluateToSamePointReward)
 {
-    ASSERT_EQ(rewarder.getTotalReward("cAbBaGe"), 14);
+    ASSERT_EQ(rewarder.getTotalReward("cAbBaGe"), rewarder.getTotalReward("CABBAGE"));
 }
 
-TEST_F(ScrabbleFullLetterRangeTestSuite, UnregisteredCharacterHanding_UnregisteredCharactersAreIgnored)
+TEST_F(ScrabbleFullLetterRangeTestSuite, UnregisteredCharacterHanding_SingleUnregisteredCharacterStringEvaluatesToZero)
+{
+    ASSERT_EQ(rewarder.getTotalReward("!"), 0);
+}
+
+TEST_F(ScrabbleFullLetterRangeTestSuite, UnregisteredCharacterHanding_UnregisteredCharactersAreIgnoredDuringEvaluation)
 {
     ASSERT_EQ(rewarder.getTotalReward("WORD 123!"), 8);
 }
 
-TEST_F(ScrabbleFullLetterRangeTestSuite, AllTest)
+TEST_F(ScrabbleFullLetterRangeTestSuite, AllRegisteredPointRewardTest_StringContainingCharactersMappingToDifferentPointRewardValuesEvaluatesToExpectedValue)
 {
     ASSERT_EQ(rewarder.getTotalReward("ADBFKJQ"), 33);
 }
