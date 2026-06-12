@@ -8,3 +8,4 @@ target_include_directories(scrabble PUBLIC
 )
 
 add_subdirectory(ut)
+add_subdirectory(application)
