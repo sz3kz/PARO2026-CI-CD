@@ -61,17 +61,27 @@ TEST_F(ScrabbleFullLetterRangeTestSuite, MockingcaseVersusUppercaseWordTest_Uppe
     ASSERT_EQ(rewarder.getTotalReward("cAbBaGe"), rewarder.getTotalReward("CABBAGE"));
 }
 
-TEST_F(ScrabbleFullLetterRangeTestSuite, UnregisteredCharacterHanding_SingleUnregisteredCharacterStringEvaluatesToZero)
-{
-    ASSERT_EQ(rewarder.getTotalReward("!"), 0);
-}
-
-TEST_F(ScrabbleFullLetterRangeTestSuite, UnregisteredCharacterHanding_UnregisteredCharactersAreIgnoredDuringEvaluation)
-{
-    ASSERT_EQ(rewarder.getTotalReward("WORD 123!"), 8);
-}
 
 TEST_F(ScrabbleFullLetterRangeTestSuite, AllRegisteredPointRewardTest_StringContainingCharactersMappingToDifferentPointRewardValuesEvaluatesToExpectedValue)
 {
     ASSERT_EQ(rewarder.getTotalReward("ADBFKJQ"), 33);
+}
+
+struct ScrabbleFewLetterRangeTestSuite : public testing::Test
+{
+    Rewarder rewarder;
+    ScrabbleFewLetterRangeTestSuite() {
+        rewarder.add( LetterHandler('A',1));
+        rewarder.add( LetterHandler('D',2));
+    };
+};
+
+TEST_F(ScrabbleFewLetterRangeTestSuite, UnregisteredCharacterHanding_SingleUnregisteredCharacterStringEvaluatesToZero)
+{
+    ASSERT_EQ(rewarder.getTotalReward("C"), 0);
+}
+
+TEST_F(ScrabbleFewLetterRangeTestSuite, UnregisteredCharacterHanding_UnregisteredCharactersAreIgnoredDuringEvaluation)
+{
+    ASSERT_EQ(rewarder.getTotalReward("A1"), 1);
 }
