@@ -2,10 +2,10 @@
 
 #include "gtest/gtest.h"
 
-struct ScrabbleTestSuite : public testing::Test
+struct ScrabbleFullLetterRangeTestSuite : public testing::Test
 {
     Rewarder rewarder;
-    ScrabbleTestSuite() {
+    ScrabbleFullLetterRangeTestSuite() {
         rewarder.add( LetterHandler('A',1));
         rewarder.add( LetterHandler('E',1));
         rewarder.add( LetterHandler('I',1));
@@ -41,32 +41,32 @@ struct ScrabbleTestSuite : public testing::Test
     }
 };
 
-TEST_F(ScrabbleTestSuite, dummyTest)
+TEST_F(ScrabbleFullLetterRangeTestSuite, dummyTest)
 {
     ASSERT_TRUE(true);
 }
 
-TEST_F(ScrabbleTestSuite, CabbageinInitialTest)
+TEST_F(ScrabbleFullLetterRangeTestSuite, CabbageinInitialTest)
 {
     ASSERT_EQ(rewarder.getTotalReward("CABBAGE"), 14);
 }
 
-TEST_F(ScrabbleTestSuite, ZeroTest)
+TEST_F(ScrabbleFullLetterRangeTestSuite, ZeroTest)
 {
     ASSERT_EQ(rewarder.getTotalReward(""), 0);
 }
 
-TEST_F(ScrabbleTestSuite, MixedTest)
+TEST_F(ScrabbleFullLetterRangeTestSuite, MixedTest)
 {
     ASSERT_EQ(rewarder.getTotalReward("cAbBaGe"), 14);
 }
 
-TEST_F(ScrabbleTestSuite, UnregisteredCharacterHanding_UnregisteredCharactersAreIgnored)
+TEST_F(ScrabbleFullLetterRangeTestSuite, UnregisteredCharacterHanding_UnregisteredCharactersAreIgnored)
 {
     ASSERT_EQ(rewarder.getTotalReward("WORD 123!"), 8);
 }
 
-TEST_F(ScrabbleTestSuite, AllTest)
+TEST_F(ScrabbleFullLetterRangeTestSuite, AllTest)
 {
     ASSERT_EQ(rewarder.getTotalReward("ADBFKJQ"), 33);
 }
