@@ -1,4 +1,4 @@
-#include "../include/Rewarder.hpp"
+#include "Rewarder.hpp"
 
 #include "gtest/gtest.h"
 

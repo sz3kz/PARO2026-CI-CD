@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-#include <algorithm>
 
 class Rewarder {
     std::vector<LetterHandler> letters;
@@ -15,6 +14,5 @@ class Rewarder {
 
     void add(LetterHandler handler);
 
-    [[nodiscard]]
     auto getTotalReward(const std::string &scrabble_word) const -> int;
 };
