@@ -1,5 +1,6 @@
 add_library(scrabble SHARED
-    src/scrabble.cpp
+    src/LetterHandler.cpp
+    src/Rewarder.cpp
 )
 
 target_include_directories(scrabble PUBLIC
