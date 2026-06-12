@@ -11,7 +11,7 @@ class Rewarder {
     auto findRewardForCharacter(char letter) const -> int;
 
   public:
-    Rewarder() = default;
+    explicit Rewarder() = default;
 
     void add(LetterHandler handler);
 
